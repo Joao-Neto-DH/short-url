@@ -18,8 +18,13 @@ import FormUpdateShort from "../form-update-short";
 import { Button } from "@/components/ui/button";
 import CopyLink from "./copy-link";
 import Link from "next/link";
+import Services from "@/services";
 
-function Page() {
+const services = new Services();
+
+async function Page() {
+  const results = await services.listarLinks({});
+
   return (
     <Table>
       {/* <TableCaption>Links gerados</TableCaption> */}
@@ -33,47 +38,59 @@ function Page() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow>
-          <TableCell className="font-medium">
-            <p className="line-clamp-2">
-              https://ui.shadcn.com/docs/components/dropdown-menu
-            </p>
-          </TableCell>
-          <TableCell>
-            <Link
-              href={`/short/links/${"shadcn"}`}
-              className="text-blue-600 underline"
-            >
-              shadcn
-            </Link>
-          </TableCell>
-          <TableCell>
-            <p className="line-clamp-2">Sem descrição</p>
-          </TableCell>
-          <TableCell className="text-right">
-            {new Date().toLocaleString("pt-BR")}
-          </TableCell>
-          <TableCell className="text-right">
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <EllipsisVertical />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="space-y-1">
-                <DropdownMenuItem asChild>
-                  <FormUpdateShort descricao="test" palavraChave="" url="" />
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <CopyLink palavraChave="shadcn" />
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild className="w-full">
-                  <Button variant={"destructive"} size={"sm"}>
-                    Remover
-                  </Button>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </TableCell>
-        </TableRow>
+        {results.map((link) => (
+          <TableRow key={link.id}>
+            <TableCell className="font-medium">
+              <p className="line-clamp-2">{link.url}</p>
+            </TableCell>
+            <TableCell>
+              <Link
+                href={`/short/links/${link.palavra_chave}`}
+                className="text-blue-600 underline"
+              >
+                {link.palavra_chave}
+              </Link>
+            </TableCell>
+            <TableCell>
+              <p className="line-clamp-2">{link.descricao}</p>
+            </TableCell>
+            <TableCell className="text-right">
+              {link.expiracao
+                ? new Date(link.expiracao).toLocaleString("pt-BR")
+                : undefined}
+            </TableCell>
+            <TableCell className="text-right">
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <EllipsisVertical />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="space-y-1">
+                  <DropdownMenuItem asChild>
+                    <FormUpdateShort
+                      id={link.id}
+                      descricao={link.descricao ?? ""}
+                      palavraChave={link.palavra_chave}
+                      url={link.url}
+                      expiracao={
+                        link.expiracao
+                          ? new Date(link.expiracao).toISOString()
+                          : undefined
+                      }
+                    />
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <CopyLink palavraChave={link.palavra_chave} />
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="w-full">
+                    <Button variant={"destructive"} size={"sm"}>
+                      Remover
+                    </Button>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   );
