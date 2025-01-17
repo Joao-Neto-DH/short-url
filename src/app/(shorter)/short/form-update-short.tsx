@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Plus } from "lucide-react";
 import React from "react";
-import ExpirationDate from "./expriration-date";
+import ExpirationDate from "./expiration-date";
 
 function FormUpdateShort({
   url,

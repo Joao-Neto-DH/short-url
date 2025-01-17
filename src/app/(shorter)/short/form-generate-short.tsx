@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Plus } from "lucide-react";
 import React, { useActionState } from "react";
-import ExpirationDate from "./expriration-date";
+import ExpirationDate from "./expiration-date";
 import { gerarLink, Result } from "@/app/actions";
 
 const initialState: Result = {
