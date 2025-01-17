@@ -27,7 +27,9 @@ function FormUpdateShort({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-full">Editar</Button>
+        <Button className="w-full" size={"sm"}>
+          Editar
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

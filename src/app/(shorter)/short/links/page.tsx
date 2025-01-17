@@ -16,6 +16,8 @@ import {
 import { EllipsisVertical } from "lucide-react";
 import FormUpdateShort from "../form-update-short";
 import { Button } from "@/components/ui/button";
+import CopyLink from "./copy-link";
+import Link from "next/link";
 
 function Page() {
   return (
@@ -33,22 +35,40 @@ function Page() {
       <TableBody>
         <TableRow>
           <TableCell className="font-medium">
-            https://ui.shadcn.com/docs/components/dropdown-menu
+            <p className="line-clamp-2">
+              https://ui.shadcn.com/docs/components/dropdown-menu
+            </p>
           </TableCell>
-          <TableCell>shadcn</TableCell>
-          <TableCell>Sem descrição</TableCell>
-          <TableCell className="text-right">$250.00</TableCell>
+          <TableCell>
+            <Link
+              href={`/short/links/${"shadcn"}`}
+              className="text-blue-600 underline"
+            >
+              shadcn
+            </Link>
+          </TableCell>
+          <TableCell>
+            <p className="line-clamp-2">Sem descrição</p>
+          </TableCell>
+          <TableCell className="text-right">
+            {new Date().toLocaleString("pt-BR")}
+          </TableCell>
           <TableCell className="text-right">
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <EllipsisVertical />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="space-y-1">
+              <DropdownMenuContent align="end" className="space-y-1">
                 <DropdownMenuItem asChild>
                   <FormUpdateShort descricao="test" palavraChave="" url="" />
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <CopyLink palavraChave="shadcn" />
+                </DropdownMenuItem>
                 <DropdownMenuItem asChild className="w-full">
-                  <Button variant={"destructive"}>Remover</Button>
+                  <Button variant={"destructive"} size={"sm"}>
+                    Remover
+                  </Button>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

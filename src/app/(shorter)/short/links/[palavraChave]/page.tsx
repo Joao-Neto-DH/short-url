@@ -1,8 +1,10 @@
-import React from "react";
 import { ChartData } from "chart.js";
-import Charts from "./charts";
+import React from "react";
+import Charts from "../../charts";
 
-function Page() {
+async function Page({ params }: { params: Promise<{ palavraChave: string }> }) {
+  const { palavraChave } = await params;
+
   const dataChartArea: ChartData<"pie", number[], string> = {
     labels: ["Computador", "Telemóvel"],
     datasets: [
@@ -16,7 +18,7 @@ function Page() {
     ],
   };
   const dataChartLine = {
-    labels: ["Computador"],
+    labels: [""],
     datasets: [
       {
         label: "Computador",
@@ -37,18 +39,12 @@ function Page() {
 
   return (
     <>
-      <div className="w-full flex flex-row overflow-x-auto pb-4 space-x-4">
-        {[...new Array(5)].map((_, index) => (
-          <div
-            key={index}
-            className="border border-l-4 border-l-blue-600 rounded-md p-4 min-w-52 shadow-md"
-          >
-            <p className="font-bold text-xl">URLs geradas</p>
-            <p className="font-light text-2xl">12</p>
-          </div>
-        ))}
+      <div className="mb-4">
+        <p className="text-2xl text-center">
+          Analise de acessos para{" "}
+          <span className="font-bold">{palavraChave}</span>
+        </p>
       </div>
-      {/* charts */}
       <Charts dataChartArea={dataChartArea} dataChartLine={dataChartLine} />
     </>
   );

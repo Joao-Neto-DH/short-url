@@ -58,7 +58,7 @@ function Charts({
             plugins: {
               title: {
                 display: true,
-                text: "Total de valor pago por dia de SUCESSO e REJEITADO",
+                text: "Total de acessos por dia",
               },
             },
           }}
