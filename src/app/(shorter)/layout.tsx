@@ -10,21 +10,31 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Home, Inbox, Calendar, Search, Settings } from "lucide-react";
+import {
+  Link as LinkIcon,
+  LucideFilePieChart,
+  Inbox,
+  Calendar,
+  Search,
+  Settings,
+} from "lucide-react";
+import Link from "next/link";
 import React from "react";
+import FormGenerateShort from "./short/form-generate-short";
 
 // Menu items.
 const items = [
   {
-    title: "Home",
-    url: "#",
-    icon: Home,
+    title: "Dashboard",
+    url: "/short",
+    icon: LucideFilePieChart,
   },
   {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
+    title: "URL",
+    url: "/short/links",
+    icon: LinkIcon,
   },
   {
     title: "Calendar",
@@ -55,10 +65,10 @@ function Layout({ children }: { children: React.ReactNode }) {
                 {items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <a href={item.url}>
+                      <Link href={item.url}>
                         <item.icon />
                         <span>{item.title}</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
@@ -67,7 +77,19 @@ function Layout({ children }: { children: React.ReactNode }) {
           </SidebarGroup>
         </SidebarContent>
       </Sidebar>
-      {children}
+      <div className="w-full">
+        {/* header */}
+        <div className="py-3 px-6 border-b">
+          <div className="flex flex-row items-center">
+            <SidebarTrigger />
+            <div className="ml-auto">
+              <FormGenerateShort />
+            </div>
+          </div>
+        </div>
+        {/* body */}
+        <div className="max-w-5xl mx-auto p-6">{children}</div>
+      </div>
     </SidebarProvider>
   );
 }
