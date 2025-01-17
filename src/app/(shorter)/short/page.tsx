@@ -1,8 +1,42 @@
 import React from "react";
 import FormGenerateShort from "./form-generate-short";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { ChartData } from "chart.js";
+import Charts from "./charts";
 
 function Page() {
+  const dataChartArea: ChartData<"pie", number[], string> = {
+    labels: ["Computador", "Telemóvel"],
+    datasets: [
+      {
+        label: "Acesso",
+        data: [10, 40],
+        backgroundColor: ["rgba(3, 252, 53, 0.2)", "rgba(252, 7, 3, 0.2)"],
+        borderColor: ["rgba(3, 252, 53, 1)", "rgba(252, 7, 3, 1)"],
+        borderWidth: 1,
+      },
+    ],
+  };
+  const dataChartLine = {
+    labels: ["Computador"],
+    datasets: [
+      {
+        label: "Sucesso",
+        data: [30, 3],
+        borderColor: "rgb(3, 252, 53)",
+        backgroundColor: "rgba(3, 252, 53, 0.5)",
+        yAxisID: "y",
+      },
+      {
+        label: "Rejeitado",
+        data: [20, 22],
+        borderColor: "rgb(252, 7, 3)",
+        backgroundColor: "rgba(252, 7, 3, 0.5)",
+        yAxisID: "y1",
+      },
+    ],
+  };
+
   return (
     <div className="w-full">
       <div className="py-3 px-6 border-b">
@@ -25,6 +59,8 @@ function Page() {
             </div>
           ))}
         </div>
+        {/* charts */}
+        <Charts dataChartArea={dataChartArea} dataChartLine={dataChartLine} />
       </div>
     </div>
   );
