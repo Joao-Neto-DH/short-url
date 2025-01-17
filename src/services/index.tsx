@@ -2,7 +2,9 @@ import { prisma } from "@/prisma";
 import { Link } from "../../prisma/generated/client";
 
 export default class Services {
-  public async gerarLink(data: Link) {
+  public async gerarLink(
+    data: Pick<Link, "palavra_chave" | "expiracao" | "descricao" | "url">
+  ) {
     const result = await prisma.link.create({
       data: {
         ...data,

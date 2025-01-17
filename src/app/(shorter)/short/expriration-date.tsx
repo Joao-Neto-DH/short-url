@@ -6,6 +6,7 @@ import React, { useState } from "react";
 
 function ExpirationDate({ expiracao }: { expiracao?: string }) {
   const [limitado, setLimitado] = useState(expiracao !== undefined);
+
   return (
     <>
       <label htmlFor="expiracao" className="block mb-3">
@@ -13,7 +14,7 @@ function ExpirationDate({ expiracao }: { expiracao?: string }) {
           <Checkbox
             id="expiracao"
             checked={limitado}
-            onCheckedChange={() => setLimitado((prev) => !prev)}
+            onClick={() => setLimitado((prev) => !prev)}
           />
           <span className="mb-1 text-sm font-bold">Data de expiração</span>
         </div>
@@ -29,7 +30,7 @@ function ExpirationDate({ expiracao }: { expiracao?: string }) {
             name="validade"
             id="validade"
             required
-            defaultValue={expiracao}
+            defaultValue={expiracao?.replace("Z", "")}
           />
         </label>
       )}
