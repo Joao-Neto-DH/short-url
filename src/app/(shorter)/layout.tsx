@@ -15,10 +15,10 @@ import {
 import {
   Link as LinkIcon,
   LucideFilePieChart,
-  Inbox,
-  Calendar,
-  Search,
-  Settings,
+  // Inbox,
+  // Calendar,
+  // Search,
+  // Settings,
 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -36,21 +36,21 @@ const items = [
     url: "/short/links",
     icon: LinkIcon,
   },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
+  // {
+  //   title: "Calendar",
+  //   url: "#",
+  //   icon: Calendar,
+  // },
+  // {
+  //   title: "Search",
+  //   url: "#",
+  //   icon: Search,
+  // },
+  // {
+  //   title: "Settings",
+  //   url: "#",
+  //   icon: Settings,
+  // },
 ];
 
 function Layout({ children }: { children: React.ReactNode }) {

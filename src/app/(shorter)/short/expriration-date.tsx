@@ -4,8 +4,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import React, { useState } from "react";
 
-function ExpirationDate() {
-  const [limitado, setLimitado] = useState(false);
+function ExpirationDate({ expiracao }: { expiracao?: string }) {
+  const [limitado, setLimitado] = useState(expiracao !== undefined);
   return (
     <>
       <label htmlFor="expiracao" className="block mb-3">
@@ -24,7 +24,13 @@ function ExpirationDate() {
           <span className="mb-1 text-sm font-bold">
             Data<span className="text-red-600">*</span>
           </span>
-          <Input type="datetime-local" name="validade" id="validade" required />
+          <Input
+            type="datetime-local"
+            name="validade"
+            id="validade"
+            required
+            defaultValue={expiracao}
+          />
         </label>
       )}
     </>
