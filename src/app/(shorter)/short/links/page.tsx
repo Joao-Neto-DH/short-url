@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import CopyLink from "./copy-link";
 import Link from "next/link";
 import Services from "@/services";
+import { slug } from "@/lib/utils";
 
 const services = new Services();
 
@@ -45,7 +46,9 @@ async function Page() {
             </TableCell>
             <TableCell>
               <Link
-                href={`/short/links/${link.palavra_chave}`}
+                href={`/short/links/${encodeURIComponent(
+                  slug(link.palavra_chave)
+                )}`}
                 className="text-blue-600 underline"
               >
                 {link.palavra_chave}
@@ -79,7 +82,11 @@ async function Page() {
                     />
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <CopyLink palavraChave={link.palavra_chave} />
+                    <CopyLink
+                      palavraChave={encodeURIComponent(
+                        slug(link.palavra_chave)
+                      )}
+                    />
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild className="w-full">
                     <Button variant={"destructive"} size={"sm"}>

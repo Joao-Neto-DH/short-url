@@ -1,16 +1,28 @@
 import { ChartData } from "chart.js";
 import React from "react";
 import Charts from "../../charts";
+import { unSlug } from "@/lib/utils";
+import Services from "@/services";
+import { notFound } from "next/navigation";
+
+const services = new Services();
 
 async function Page({ params }: { params: Promise<{ palavraChave: string }> }) {
   const { palavraChave } = await params;
+  const word = decodeURIComponent(unSlug(palavraChave));
+
+  const link = await services.getLink(word);
+
+  if (link === null || link === undefined) {
+    notFound();
+  }
 
   const dataChartArea: ChartData<"pie", number[], string> = {
     labels: ["Computador", "Telemóvel"],
     datasets: [
       {
         label: "Acesso",
-        data: [10, 40],
+        data: [link.ContarAcesso?.desktop ?? 0, link.ContarAcesso?.mobile ?? 0],
         backgroundColor: ["rgba(3, 252, 53, 0.2)", "rgba(252, 7, 3, 0.2)"],
         borderColor: ["rgba(3, 252, 53, 1)", "rgba(252, 7, 3, 1)"],
         borderWidth: 1,
@@ -41,8 +53,7 @@ async function Page({ params }: { params: Promise<{ palavraChave: string }> }) {
     <>
       <div className="mb-4">
         <p className="text-2xl text-center">
-          Analise de acessos para{" "}
-          <span className="font-bold">{palavraChave}</span>
+          Analise de acessos para <span className="font-bold">{word}</span>
         </p>
       </div>
       <Charts dataChartArea={dataChartArea} dataChartLine={dataChartLine} />

@@ -39,6 +39,15 @@ export default class Services {
     return result;
   }
 
+  public async getLink(palavraChave: string) {
+    const result = await prisma.link.findFirst({
+      where: { palavra_chave: palavraChave },
+      include: { ContarAcesso: true },
+    });
+
+    return result;
+  }
+
   public async actualizarLink(id: number, data: Partial<Link>) {
     const result = await prisma.link.update({
       where: { id },
