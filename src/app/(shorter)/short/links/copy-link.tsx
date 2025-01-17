@@ -10,7 +10,7 @@ function CopyLink({ palavraChave }: { palavraChave: string }) {
     <Button
       onClick={() =>
         navigator.clipboard
-          .writeText(`${window.location.href}/u/${palavraChave}`)
+          .writeText(`${window.location.origin}/u/${palavraChave}`)
           .then(() => {
             toast({
               title: "Link copiado!",
