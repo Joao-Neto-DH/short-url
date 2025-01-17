@@ -13,3 +13,31 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Link {
+  id            Int           @id @default(autoincrement())
+  url           String
+  palavra_chave String        @unique
+  descricao     String?
+  expiracao     DateTime?
+  ContarAcesso  ContarAcesso?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("link")
+}
+
+model ContarAcesso {
+  id      Int @id @default(autoincrement())
+  desktop Int @default(0)
+  mobile  Int @default(0)
+
+  link   Link @relation(fields: [linkId], references: [id])
+  linkId Int  @unique
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("contar_acesso")
+}
