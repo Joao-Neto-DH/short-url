@@ -15,11 +15,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { EllipsisVertical } from "lucide-react";
 import FormUpdateShort from "../form-update-short";
-import { Button } from "@/components/ui/button";
 import ShareLink from "./share-link";
 import Link from "next/link";
 import Services from "@/services";
 import { slug } from "@/lib/utils";
+import DeleteLink from "./delete-link";
 
 const services = new Services();
 
@@ -88,10 +88,8 @@ async function Page() {
                       )}
                     />
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="w-full">
-                    <Button variant={"destructive"} size={"sm"}>
-                      Remover
-                    </Button>
+                  <DropdownMenuItem asChild>
+                    <DeleteLink linkId={link.id} />
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

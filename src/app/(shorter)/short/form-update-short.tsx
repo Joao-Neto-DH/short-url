@@ -43,6 +43,10 @@ function FormUpdateShort({
     },
   });
 
+  if (state.isSuccess && !isPending) {
+    window.location.reload();
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>

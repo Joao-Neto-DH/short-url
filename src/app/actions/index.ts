@@ -12,7 +12,7 @@ export type Result = {
   error?: string;
 };
 
-export async function gerarLink(prev: Result, form: FormData) {
+export async function gerarLink(_: Result, form: FormData) {
   const object = Object.fromEntries(form);
 
   const data = {
@@ -79,7 +79,7 @@ export async function gerarLink(prev: Result, form: FormData) {
   return result;
 }
 
-export async function actualizarLink(prev: Result, form: FormData) {
+export async function actualizarLink(_: Result, form: FormData) {
   const object = Object.fromEntries(form);
 
   const data = {
@@ -142,6 +142,34 @@ export async function actualizarLink(prev: Result, form: FormData) {
       ...data,
       expiracao: data.expiracao ? new Date(data.expiracao) : null,
     },
+    isError: true,
+    isSuccess: false,
+    error: "Erro desconhecido",
+  };
+  return result;
+}
+
+export async function removerLink(_: Result, form: FormData) {
+  const object = Object.fromEntries(form);
+
+  const data = {
+    id: object.id,
+  };
+
+  const services = new Services();
+
+  try {
+    await services.removerLink(Number(data.id));
+
+    const resultSuccess: Result = {
+      isError: false,
+      isSuccess: true,
+    };
+
+    return resultSuccess;
+  } catch (error) {}
+
+  const result: Result = {
     isError: true,
     isSuccess: false,
     error: "Erro desconhecido",

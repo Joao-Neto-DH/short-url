@@ -23,6 +23,11 @@ const initialState: Result = {
 
 function FormGenerateShort() {
   const [state, action, isPending] = useActionState(gerarLink, initialState);
+
+  if (state.isSuccess && !isPending) {
+    window.location.reload();
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
