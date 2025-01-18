@@ -2,6 +2,7 @@
 
 import Services from "@/services";
 import { Link } from "../../../prisma/generated/client";
+import { isValidUrl } from "@/lib/utils";
 
 export type Result = {
   isError: boolean;
@@ -20,6 +21,19 @@ export async function gerarLink(prev: Result, form: FormData) {
     palavra_chave: object["palavra-chave"].toString(),
     expiracao: object.validade?.toString(),
   };
+
+  if (!isValidUrl(data.url)) {
+    const result: Result = {
+      currentData: {
+        ...data,
+        expiracao: data.expiracao ? new Date(data.expiracao) : null,
+      },
+      isError: true,
+      isSuccess: false,
+      error: "URL inválida",
+    };
+    return result;
+  }
 
   const services = new Services();
 
@@ -75,6 +89,19 @@ export async function actualizarLink(prev: Result, form: FormData) {
     palavra_chave: object["palavra-chave"].toString(),
     expiracao: object.validade?.toString(),
   };
+
+  if (!isValidUrl(data.url)) {
+    const result: Result = {
+      currentData: {
+        ...data,
+        expiracao: data.expiracao ? new Date(data.expiracao) : null,
+      },
+      isError: true,
+      isSuccess: false,
+      error: "URL inválida",
+    };
+    return result;
+  }
 
   const services = new Services();
 

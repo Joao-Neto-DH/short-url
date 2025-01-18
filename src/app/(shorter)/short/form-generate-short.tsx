@@ -23,6 +23,7 @@ const initialState: Result = {
 
 function FormGenerateShort() {
   const [state, action, isPending] = useActionState(gerarLink, initialState);
+  console.log("STATE", state);
 
   // useFormStatus()
   return (
@@ -45,12 +46,12 @@ function FormGenerateShort() {
 
         <div className="">
           <form action={action} className="w-full">
-            {state.isError && (
+            {state?.isError && (
               <div className="mb-3">
                 <p className="text-sm text-red-600">{state.error}</p>
               </div>
             )}
-            {state.isSuccess && (
+            {state?.isSuccess && (
               <div className="mb-3">
                 <p className="text-sm text-green-600">Link encurtado</p>
               </div>
@@ -66,7 +67,7 @@ function FormGenerateShort() {
                   id="url"
                   required
                   placeholder="https://www.mylink.com/sample/come-here"
-                  defaultValue={state.currentData?.url}
+                  defaultValue={state?.currentData?.url}
                 />
               </label>
               <label htmlFor="palavra-chave" className="block mb-3">
@@ -78,7 +79,7 @@ function FormGenerateShort() {
                   name="palavra-chave"
                   id="palavra-chave"
                   placeholder="Sample"
-                  defaultValue={state.currentData?.palavra_chave}
+                  defaultValue={state?.currentData?.palavra_chave}
                 />
               </label>
               <label htmlFor="descricao" className="block mb-3">
@@ -89,11 +90,11 @@ function FormGenerateShort() {
                   id="descricao"
                   placeholder="Sample"
                   className="w-full"
-                  defaultValue={state.currentData?.descricao ?? undefined}
+                  defaultValue={state?.currentData?.descricao ?? undefined}
                 />
               </label>
               <ExpirationDate
-                expiracao={state.currentData?.expiracao?.toISOString()}
+                expiracao={state?.currentData?.expiracao?.toISOString()}
               />
               <Button className="w-full" type="submit">
                 Gerar

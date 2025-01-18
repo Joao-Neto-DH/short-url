@@ -12,3 +12,12 @@ export function slug(str: string) {
 export function unSlug(str: string) {
   return str.replaceAll("-", " ");
 }
+
+export function isValidUrl(url: string) {
+  try {
+    new URL(url);
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
