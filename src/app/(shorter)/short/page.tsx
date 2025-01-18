@@ -1,14 +1,20 @@
 import React from "react";
 import { ChartData } from "chart.js";
 import Charts from "./charts";
+import Services from "@/services";
 
-function Page() {
+const services = new Services();
+
+async function Page() {
+  const result = await services.totalAcessosMovelEPc();
+  console.log(result);
+
   const dataChartArea: ChartData<"pie", number[], string> = {
     labels: ["Computador", "Telemóvel"],
     datasets: [
       {
         label: "Acesso",
-        data: [10, 40],
+        data: [result._sum.desktop ?? 0, result._sum.mobile ?? 0],
         backgroundColor: ["rgba(3, 252, 53, 0.2)", "rgba(252, 7, 3, 0.2)"],
         borderColor: ["rgba(3, 252, 53, 1)", "rgba(252, 7, 3, 1)"],
         borderWidth: 1,

@@ -96,4 +96,19 @@ export default class Services {
 
     return result;
   }
+
+  public async totalAcessosMovelEPc(palavraChave?: string) {
+    const result = await prisma.contarAcesso.aggregate({
+      _sum: {
+        desktop: true,
+        mobile: true,
+      },
+      where: {
+        link: {
+          palavra_chave: palavraChave,
+        },
+      },
+    });
+    return result;
+  }
 }
