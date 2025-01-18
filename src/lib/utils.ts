@@ -15,8 +15,9 @@ export function unSlug(str: string) {
 
 export function isValidUrl(url: string) {
   try {
-    new URL(url);
-    return true;
+    const urlObj = new URL(url);
+
+    return urlObj.protocol === "http:" || urlObj.protocol === "https:";
   } catch (err) {
     return false;
   }
