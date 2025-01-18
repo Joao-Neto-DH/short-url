@@ -11,7 +11,7 @@ async function Page({ params }: { params: Promise<{ palavraChave: string }> }) {
   const { palavraChave } = await params;
   const word = decodeURIComponent(unSlug(palavraChave));
 
-  const link = await services.getLink(word);
+  const link = await services.getLinkPelaPalavraChave(word);
 
   if (link === null || link === undefined) {
     notFound();

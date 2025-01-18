@@ -30,7 +30,7 @@ export default class Services {
     return result;
   }
 
-  public async verLink(id: number) {
+  public async getLinkPeloId(id: number) {
     const result = await prisma.link.findFirst({
       where: { id },
       include: { ContarAcesso: true },
@@ -39,7 +39,7 @@ export default class Services {
     return result;
   }
 
-  public async getLink(palavraChave: string) {
+  public async getLinkPelaPalavraChave(palavraChave: string) {
     const result = await prisma.link.findFirst({
       where: { palavra_chave: palavraChave },
       include: { ContarAcesso: true },
