@@ -16,7 +16,7 @@ import {
 import { EllipsisVertical } from "lucide-react";
 import FormUpdateShort from "../form-update-short";
 import { Button } from "@/components/ui/button";
-import CopyLink from "./copy-link";
+import ShareLink from "./share-link";
 import Link from "next/link";
 import Services from "@/services";
 import { slug } from "@/lib/utils";
@@ -82,7 +82,7 @@ async function Page() {
                     />
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <CopyLink
+                    <ShareLink
                       palavraChave={encodeURIComponent(
                         slug(link.palavra_chave)
                       )}
