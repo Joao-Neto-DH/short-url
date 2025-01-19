@@ -31,7 +31,7 @@ export default function Home() {
                         key={i}
                         style={{ animationDelay: `${i * 2}00ms` }}
                         className={cn(
-                          `inline-block !text-5xl text-blue-600 animate-pulse`
+                          `inline-block !text-6xl text-blue-600 animate-pulse`
                         )}
                       >
                         O
@@ -47,10 +47,18 @@ export default function Home() {
                   seus links.
                 </p>
               </div>
-              <div className="w-full max-w-sm space-y-2">Foto aqui</div>
+              <div className="w-[720px] h-[150px] relative">
+                <div className="w-[720px] bg-blue-600 h-[400px] rounded-3xl relative -bottom-10 z-[1]">
+                  Foto aqui
+                </div>
+                <div className="absolute -bottom-[calc(250px_+_40px)] w-[720px] rounded-b-3xl h-[100px] bg-green-600 shadow-2xl shadow-blue-600/70"></div>
+              </div>
             </div>
           </div>
         </section>
+        {/* <div className="absolute w-[720px] bg-blue-600 h-[400px]">
+          Foto aqui
+        </div> */}
         <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-3 lg:gap-12">
