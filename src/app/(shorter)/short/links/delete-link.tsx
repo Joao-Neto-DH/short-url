@@ -1,7 +1,8 @@
 "use client";
 import { removerLink, Result } from "@/app/actions";
 import { Button } from "@/components/ui/button";
-import React, { useActionState } from "react";
+import React from "react";
+import { useFormState } from "react-dom";
 
 const initialState: Result = {
   isError: false,
@@ -9,7 +10,7 @@ const initialState: Result = {
 };
 
 function DeleteLink({ linkId }: { linkId: number }) {
-  const [state, action, isPending] = useActionState(removerLink, initialState);
+  const [state, action, isPending] = useFormState(removerLink, initialState);
 
   if (state.isSuccess && !isPending) {
     window.location.reload();

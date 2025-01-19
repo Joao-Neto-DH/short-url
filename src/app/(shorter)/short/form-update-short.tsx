@@ -11,9 +11,10 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import React, { useActionState } from "react";
+import React from "react";
 import ExpirationDate from "./expiration-date";
 import { actualizarLink, Result } from "@/app/actions";
+import { useFormState } from "react-dom";
 
 const initialState: Result = {
   isError: false,
@@ -33,7 +34,7 @@ function FormUpdateShort({
   descricao: string;
   expiracao?: string;
 }) {
-  const [state, action, isPending] = useActionState(actualizarLink, {
+  const [state, action, isPending] = useFormState(actualizarLink, {
     ...initialState,
     currentData: {
       descricao,

@@ -12,9 +12,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Plus } from "lucide-react";
-import React, { useActionState } from "react";
+import React from "react";
 import ExpirationDate from "./expiration-date";
 import { gerarLink, Result } from "@/app/actions";
+import { useFormState } from "react-dom";
 
 const initialState: Result = {
   isError: false,
@@ -22,7 +23,7 @@ const initialState: Result = {
 };
 
 function FormGenerateShort() {
-  const [state, action, isPending] = useActionState(gerarLink, initialState);
+  const [state, action, isPending] = useFormState(gerarLink, initialState);
 
   if (state.isSuccess && !isPending) {
     window.location.reload();
