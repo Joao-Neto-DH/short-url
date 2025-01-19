@@ -65,7 +65,7 @@ export async function gerarLink(_: Result, form: FormData) {
       result: result,
     };
     return resultSuccess;
-  } catch (error) {}
+  } catch (_) {}
 
   const result: Result = {
     currentData: {
@@ -135,7 +135,7 @@ export async function actualizarLink(_: Result, form: FormData) {
     };
 
     return resultSuccess;
-  } catch (error) {}
+  } catch (_) {}
 
   const result: Result = {
     currentData: {
@@ -167,7 +167,7 @@ export async function removerLink(_: Result, form: FormData) {
     };
 
     return resultSuccess;
-  } catch (error) {}
+  } catch (_) {}
 
   const result: Result = {
     isError: true,
