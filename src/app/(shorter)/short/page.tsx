@@ -4,6 +4,7 @@ import Charts from "./charts";
 import Services from "@/services";
 
 const services = new Services();
+export const dynamic = "force-dynamic";
 
 async function Page() {
   const result = await services.totalAcessosMovelEPc();
