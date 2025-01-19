@@ -8,7 +8,6 @@ export const dynamic = "force-dynamic";
 
 async function Page() {
   const result = await services.totalAcessosMovelEPc();
-  console.log(result);
 
   const dataChartArea: ChartData<"pie", number[], string> = {
     labels: ["Computador", "Telemóvel"],

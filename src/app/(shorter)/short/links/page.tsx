@@ -22,6 +22,7 @@ import { slug } from "@/lib/utils";
 import DeleteLink from "./delete-link";
 
 const services = new Services();
+export const dynamic = "force-dynamic";
 
 async function Page() {
   const results = await services.listarLinks({});
