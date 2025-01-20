@@ -1,4 +1,6 @@
-import { Button } from "@/components/ui/button";
+import CreateAccountModal from "@/components/create-account-modal";
+import LoginModal from "@/components/login-modal";
+// import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { BarChartIcon as ChartBar, Zap, Globe2, LinkIcon } from "lucide-react";
@@ -13,8 +15,10 @@ export default function Home() {
           <span className="ml-2 text-xl font-bold">Shortly</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Button variant="ghost">Entrar</Button>
-          <Button>Criar conta</Button>
+          {/* <Button variant="ghost">Entrar</Button> */}
+          <LoginModal />
+          <CreateAccountModal />
+          {/* <Button>Criar conta</Button> */}
         </nav>
       </header>
       <main className="flex-1">
@@ -154,10 +158,13 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                <Button size="lg">Criar conta</Button>
+                {/* <Button size="lg">Criar conta</Button>
                 <Button variant="outline" size="lg">
                   Entrar
-                </Button>
+                </Button> */}
+
+                <LoginModal />
+                <CreateAccountModal />
               </div>
             </div>
           </div>
