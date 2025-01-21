@@ -44,13 +44,16 @@ async function Page() {
   return (
     <>
       <div className="w-full flex flex-row overflow-x-auto pb-4 space-x-4">
-        {[...new Array(5)].map((_, index) => (
+        {[
+          { name: "Acessos por computador", value: result._sum.desktop },
+          { name: "Acessos por telemóvel", value: result._sum.mobile },
+        ].map((data, index) => (
           <div
             key={index}
             className="border border-l-4 border-l-blue-600 rounded-md p-4 min-w-52 shadow-md"
           >
-            <p className="font-bold text-xl">URLs geradas</p>
-            <p className="font-light text-2xl">12</p>
+            <p className="font-bold text-xl">{data.name}</p>
+            <p className="font-light text-2xl">{data.value}</p>
           </div>
         ))}
       </div>
