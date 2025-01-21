@@ -136,6 +136,7 @@ export default class Services {
       }),
       prisma.utmSource.upsert({
         where: {
+          id: utmSource?.id,
           linkId: access?.linkId!,
         },
         create: {

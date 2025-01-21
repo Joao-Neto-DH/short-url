@@ -12,8 +12,9 @@ async function Page({ params }: { params: Promise<{ palavraChave: string }> }) {
   const { palavraChave } = await params;
   const word = decodeURIComponent(unSlug(palavraChave));
 
-  const [link, usuarioId] = await Promise.all([
+  const [link, sources, usuarioId] = await Promise.all([
     services.getLinkPelaPalavraChave(word),
+    services.totalAcessosSource(word),
     getUsuario(),
   ]);
 
@@ -34,21 +35,26 @@ async function Page({ params }: { params: Promise<{ palavraChave: string }> }) {
     ],
   };
   const dataChartLine = {
-    labels: [""],
+    labels: ["Computador", "Telemóvel"],
     datasets: [
       {
-        label: "Computador",
-        data: [30, 3],
+        label: "Acesso",
+        data: [link.ContarAcesso?.desktop ?? 0, link.ContarAcesso?.mobile ?? 0],
         borderColor: "rgb(3, 252, 53)",
         backgroundColor: "rgba(3, 252, 53, 0.5)",
         yAxisID: "y",
       },
+    ],
+  };
+  const dataChartSource = {
+    labels: sources.map((s) => s.name),
+    datasets: [
       {
-        label: "Telemóvel",
-        data: [20, 22],
-        borderColor: "rgb(252, 7, 3)",
-        backgroundColor: "rgba(252, 7, 3, 0.5)",
-        yAxisID: "y1",
+        label: "Acesso",
+        data: sources.map((s) => s.count),
+        borderColor: "rgb(3, 252, 53)",
+        backgroundColor: "rgba(3, 252, 53, 0.5)",
+        yAxisID: "y",
       },
     ],
   };
@@ -69,7 +75,11 @@ async function Page({ params }: { params: Promise<{ palavraChave: string }> }) {
           )}
         </ul>
       </div>
-      <Charts dataChartArea={dataChartArea} dataChartLine={dataChartLine} />
+      <Charts
+        dataChartArea={dataChartArea}
+        dataChartLine={dataChartLine}
+        dataChartSource={dataChartSource}
+      />
     </>
   );
 }

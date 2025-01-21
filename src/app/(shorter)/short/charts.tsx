@@ -32,42 +32,62 @@ ChartJS.register(
 function Charts({
   dataChartArea,
   dataChartLine,
+  dataChartSource,
 }: {
   dataChartArea: ChartData<"pie", number[], string>;
   dataChartLine: ChartData<"bar", number[], string>;
+  dataChartSource?: ChartData<"bar", number[], string>;
 }) {
   return (
-    <div className="flex flex-row gap-6 mt-4">
-      <div className="w-1/3 p-6 rounded-md border">
-        <Pie
-          data={dataChartArea}
-          options={{
-            plugins: {
-              title: {
-                display: true,
-                text: "Total de acesso por dispositivo",
+    <>
+      <div className="flex flex-row gap-6 mt-4">
+        <div className="w-1/3 p-6 rounded-md border">
+          <Pie
+            data={dataChartArea}
+            options={{
+              plugins: {
+                title: {
+                  display: true,
+                  text: "Total de acesso por dispositivo",
+                },
               },
-            },
-          }}
-          className="w-96"
-          id="pie"
-        />
-      </div>
-      <div className="w-full p-6 rounded-md border ">
-        <Bar
-          data={dataChartLine}
-          options={{
-            plugins: {
-              title: {
-                display: true,
-                text: "Total de acessos por dia",
+            }}
+            className="w-96"
+            id="pie"
+          />
+        </div>
+        <div className="w-full p-6 rounded-md border ">
+          <Bar
+            data={dataChartLine}
+            options={{
+              plugins: {
+                title: {
+                  display: true,
+                  text: "Total de acessos por dia",
+                },
               },
-            },
-          }}
-          id="lines"
-        />
+            }}
+            id="lines"
+          />
+        </div>
       </div>
-    </div>
+      {dataChartSource && (
+        <div className="w-full p-6 rounded-md border ">
+          <Bar
+            data={dataChartSource}
+            options={{
+              plugins: {
+                title: {
+                  display: true,
+                  text: "Total de acessos por dia",
+                },
+              },
+            }}
+            id="lines"
+          />
+        </div>
+      )}
+    </>
   );
 }
 
