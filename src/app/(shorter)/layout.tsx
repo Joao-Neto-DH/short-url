@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Sidebar,
   SidebarContent,
@@ -14,8 +12,10 @@ import {
   SidebarFooter,
 } from "@/components/ui/sidebar";
 import {
+  ChevronUp,
   Link as LinkIcon,
   LucideFilePieChart,
+  User2,
   // Inbox,
   // Calendar,
   // Search,
@@ -25,6 +25,13 @@ import Link from "next/link";
 import React from "react";
 import FormGenerateShort from "./short/form-generate-short";
 import Logout from "./logout";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import Services from "@/services";
 
 // Menu items.
 const items = [
@@ -54,8 +61,11 @@ const items = [
   //   icon: Settings,
   // },
 ];
+const service = new Services();
 
-function Layout({ children }: { children: React.ReactNode }) {
+async function Layout({ children }: { children: React.ReactNode }) {
+  const usuario = await service.usuario();
+
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon">
@@ -79,7 +89,26 @@ function Layout({ children }: { children: React.ReactNode }) {
           </SidebarGroup>
         </SidebarContent>
         <SidebarFooter>
-          <Logout />
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <SidebarMenuButton>
+                    <User2 /> {usuario.name}
+                    <ChevronUp className="ml-auto" />
+                  </SidebarMenuButton>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  side="top"
+                  className="w-[--radix-popper-anchor-width]"
+                >
+                  <DropdownMenuItem asChild>
+                    <Logout />
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </SidebarMenuItem>
+          </SidebarMenu>
         </SidebarFooter>
       </Sidebar>
       <div className="w-full">

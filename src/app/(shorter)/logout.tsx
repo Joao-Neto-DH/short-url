@@ -1,9 +1,11 @@
+"use client";
 import React, { useActionState } from "react";
 import { logout } from "../actions";
 import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
+import { cn } from "@/lib/utils";
 
-function Logout() {
+function Logout(props: React.ComponentPropsWithRef<"button">) {
   const [saiu, action, isPending] = useActionState(logout, false);
 
   if (saiu && !isPending) {
@@ -11,7 +13,9 @@ function Logout() {
   }
   return (
     <form action={action}>
-      <Button className="w-full">Sair</Button>
+      <Button ref={props.ref} className={cn("w-full", props.className)}>
+        Sair
+      </Button>
     </form>
   );
 }

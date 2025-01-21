@@ -3,6 +3,14 @@ import { Link } from "../../prisma/generated/client";
 import { getUsuario } from "@/lib/check-login";
 
 export default class Services {
+  public async usuario() {
+    const userId = await getUsuario();
+
+    const usuario = await prisma.usuario.findFirst({ where: { id: userId } });
+
+    return usuario!;
+  }
+
   public async gerarLink(
     data: Pick<Link, "palavra_chave" | "expiracao" | "descricao" | "url">
   ) {
