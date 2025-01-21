@@ -12,7 +12,7 @@ function ShareContainer({ link }: { link: string }) {
 
   return (
     <ul className="space-y-2">
-      <li>
+      {/* <li>
         <Button
           variant={"outline"}
           asChild
@@ -26,7 +26,7 @@ function ShareContainer({ link }: { link: string }) {
             Facebook
           </a>
         </Button>
-      </li>
+      </li> */}
       <li>
         <Button
           variant={"outline"}
