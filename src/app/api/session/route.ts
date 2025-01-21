@@ -1,14 +1,12 @@
 import { prisma } from "@/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { Usuario } from "../../../../prisma/generated/client";
-import { cookies } from "next/headers";
 import * as jose from "jose";
-import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
+import { cookies } from "next/headers";
 
 export async function POST(request: NextRequest) {
   const { password, email } = (await request.json()) as Usuario;
-  console.log(password, email);
 
   try {
     const result = await prisma.usuario.findFirstOrThrow({
@@ -17,28 +15,26 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    bcrypt.compare(password, result.password, async function (err, res) {
-      if (err) {
-        throw new Error(err.message);
-      }
-      if (!res) {
-        throw new Error("Email ou senha incorretos");
-      }
+    const checked = bcrypt.compareSync(password, result.password);
 
-      const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-      const token = await new jose.SignJWT({ id: result.id })
+    if (!checked) {
+      throw new Error("Email ou senha incorretos");
+    }
 
-        .setProtectedHeader({ alg: "HS256" })
-        .setExpirationTime("24h")
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+    const token = await new jose.SignJWT({ id: result.id })
+      .setProtectedHeader({ alg: "HS256" })
+      .setExpirationTime("24h")
+      .sign(secret);
 
-        .sign(secret);
-
-      const cookiesStore = await cookies();
-      cookiesStore.set("token", token, {
-        httpOnly: true,
-      });
+    const cookiesStore = await cookies();
+    cookiesStore.set("token", token, {
+      httpOnly: true,
     });
-    return NextResponse.json("Sucesso", { status: 200 });
+
+    return NextResponse.json("Sucesso", {
+      status: 200,
+    });
 
     // const secret = new TextEncoder().encode(process.env.JWT_SECRET);
     // const token = await new jose.SignJWT({ id: result.id })
