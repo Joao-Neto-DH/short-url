@@ -95,27 +95,69 @@ export default class Services {
 
   public async contarAccesso(
     palavraChave: string,
-    dispositivo: "PC" | "MOVEL"
+    dispositivo: "PC" | "MOVEL",
+    source: string = "outros"
   ) {
-    const access = await prisma.contarAcesso.findFirst({
-      where: {
-        link: {
-          palavra_chave: {
-            equals: palavraChave,
+    const [access, utmSource] = await Promise.all([
+      prisma.contarAcesso.findFirst({
+        where: {
+          link: {
+            palavra_chave: {
+              equals: palavraChave,
+            },
           },
         },
-      },
-    });
+      }),
+      prisma.utmSource.findFirst({
+        where: {
+          link: {
+            palavra_chave: {
+              equals: palavraChave,
+            },
+          },
+          name: {
+            equals: source,
+          },
+        },
+      }),
+    ]);
 
-    const result = await prisma.contarAcesso.update({
-      where: {
-        id: access?.id,
-      },
-      data: {
-        desktop: dispositivo === "PC" ? (access?.desktop ?? 0) + 1 : undefined,
-        mobile: dispositivo === "MOVEL" ? (access?.mobile ?? 0) + 1 : undefined,
-      },
-    });
+    const [result] = await prisma.$transaction([
+      prisma.contarAcesso.update({
+        where: {
+          id: access?.id,
+        },
+        data: {
+          desktop:
+            dispositivo === "PC" ? (access?.desktop ?? 0) + 1 : undefined,
+          mobile:
+            dispositivo === "MOVEL" ? (access?.mobile ?? 0) + 1 : undefined,
+        },
+      }),
+      prisma.utmSource.upsert({
+        where: {
+          linkId: access?.linkId!,
+        },
+        create: {
+          name: source,
+          count: 1,
+          linkId: access?.linkId!,
+        },
+        update: {
+          count: utmSource?.count ? utmSource.count + 1 : 1,
+        },
+      }),
+    ]);
+
+    // const result = await prisma.contarAcesso.update({
+    //   where: {
+    //     id: access?.id,
+    //   },
+    //   data: {
+    //     desktop: dispositivo === "PC" ? (access?.desktop ?? 0) + 1 : undefined,
+    //     mobile: dispositivo === "MOVEL" ? (access?.mobile ?? 0) + 1 : undefined,
+    //   },
+    // });
 
     return result;
   }

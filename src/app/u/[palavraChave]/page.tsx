@@ -38,7 +38,11 @@ async function Page({
     }
   }
 
-  await services.contarAccesso(palavraOriginal, origem as "PC" | "MOVEL");
+  await services.contarAccesso(
+    palavraOriginal,
+    origem as "PC" | "MOVEL",
+    utm_source
+  );
 
   redirect(link.url);
 }

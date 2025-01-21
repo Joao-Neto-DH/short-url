@@ -1,0 +1,14 @@
+-- CreateTable
+CREATE TABLE `utm_source` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(191) NOT NULL,
+    `count` INTEGER NOT NULL DEFAULT 0,
+    `linkId` INTEGER NOT NULL,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updated_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `utm_source` ADD CONSTRAINT `utm_source_linkId_fkey` FOREIGN KEY (`linkId`) REFERENCES `link`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

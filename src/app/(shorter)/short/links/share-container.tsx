@@ -34,10 +34,24 @@ function ShareContainer({ link }: { link: string }) {
           className="w-full flex items-center gap-2"
         >
           <a
-            href={`https://x.com/intent/tweet?text=Bilheteria+Dunorte&url=${link}?utm_source=x&hashtags=bilheteriadunorte`}
+            href={`https://x.com/intent/tweet?url=${link}?utm_source=x&hashtags=short`}
             target="_blank"
           >
             <XIcon />X (Twitter)
+          </a>
+        </Button>
+      </li>
+      <li>
+        <Button
+          variant={"outline"}
+          asChild
+          className="w-full flex items-center gap-2"
+        >
+          <a
+            href={`https://wa.me/?text=${link}?utm_source=whatsapp`}
+            target="_blank"
+          >
+            Whatsapp
           </a>
         </Button>
       </li>
