@@ -1,13 +1,18 @@
 import { prisma } from "@/prisma";
 import { Link } from "../../prisma/generated/client";
+import { getUsuario } from "@/lib/check-login";
 
 export default class Services {
   public async gerarLink(
     data: Pick<Link, "palavra_chave" | "expiracao" | "descricao" | "url">
   ) {
+    const userId = await getUsuario();
+    if (!userId) throw new Error("Usuário não logado");
+
     const result = await prisma.link.create({
       data: {
         ...data,
+        usuarioId: userId,
         ContarAcesso: {
           create: {
             desktop: 0,
@@ -22,8 +27,11 @@ export default class Services {
   }
 
   public async listarLinks(data: Partial<Link>) {
+    const userId = await getUsuario();
+    if (!userId) throw new Error("Usuário não logado");
+
     const result = await prisma.link.findMany({
-      where: data,
+      where: { ...data, usuarioId: userId },
       include: { ContarAcesso: true },
     });
 
@@ -49,10 +57,14 @@ export default class Services {
   }
 
   public async actualizarLink(id: number, data: Partial<Link>) {
+    const userId = await getUsuario();
+    if (!userId) throw new Error("Usuário não logado");
+
     const result = await prisma.link.update({
       where: { id },
       data: {
         ...data,
+        usuarioId: userId,
         id: undefined,
       },
       include: { ContarAcesso: true },
@@ -62,8 +74,11 @@ export default class Services {
   }
 
   public async removerLink(id: number) {
+    const userId = await getUsuario();
+    if (!userId) throw new Error("Usuário não logado");
+
     const result = await prisma.link.delete({
-      where: { id },
+      where: { id, usuarioId: userId },
       include: { ContarAcesso: true },
     });
 
@@ -98,6 +113,9 @@ export default class Services {
   }
 
   public async totalAcessosMovelEPc(palavraChave?: string) {
+    const userId = await getUsuario();
+    if (!userId) throw new Error("Usuário não logado");
+
     const result = await prisma.contarAcesso.aggregate({
       _sum: {
         desktop: true,
@@ -106,6 +124,7 @@ export default class Services {
       where: {
         link: {
           palavra_chave: palavraChave,
+          usuarioId: userId,
         },
       },
     });

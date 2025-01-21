@@ -4,6 +4,7 @@ import Charts from "../../charts";
 import { unSlug } from "@/lib/utils";
 import Services from "@/services";
 import { notFound } from "next/navigation";
+import { getUsuario } from "@/lib/check-login";
 
 const services = new Services();
 
@@ -11,9 +12,12 @@ async function Page({ params }: { params: Promise<{ palavraChave: string }> }) {
   const { palavraChave } = await params;
   const word = decodeURIComponent(unSlug(palavraChave));
 
-  const link = await services.getLinkPelaPalavraChave(word);
+  const [link, usuarioId] = await Promise.all([
+    services.getLinkPelaPalavraChave(word),
+    getUsuario(),
+  ]);
 
-  if (link === null || link === undefined) {
+  if (link === null || link === undefined || link.usuarioId !== usuarioId) {
     notFound();
   }
 
