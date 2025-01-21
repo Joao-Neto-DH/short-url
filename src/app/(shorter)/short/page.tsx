@@ -22,21 +22,14 @@ async function Page() {
     ],
   };
   const dataChartLine = {
-    labels: ["Computador"],
+    labels: ["Computador", "Telemóvel"],
     datasets: [
       {
-        label: "Computador",
-        data: [30, 3],
+        label: "Acesso",
+        data: [result._sum.desktop ?? 0, result._sum.mobile ?? 0],
         borderColor: "rgb(3, 252, 53)",
         backgroundColor: "rgba(3, 252, 53, 0.5)",
         yAxisID: "y",
-      },
-      {
-        label: "Telemóvel",
-        data: [20, 22],
-        borderColor: "rgb(252, 7, 3)",
-        backgroundColor: "rgba(252, 7, 3, 0.5)",
-        yAxisID: "y1",
       },
     ],
   };
