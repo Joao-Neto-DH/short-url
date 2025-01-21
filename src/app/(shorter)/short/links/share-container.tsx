@@ -1,11 +1,11 @@
 "use client";
 
-import FacebookIcon from "@/components/social-media-icon/facebook";
 import LinkIcon from "@/components/social-media-icon/link";
 import XIcon from "@/components/social-media-icon/x";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import React from "react";
+import QRCode from "react-qr-code";
 
 function ShareContainer({ link }: { link: string }) {
   const { toast } = useToast();
@@ -73,6 +73,19 @@ function ShareContainer({ link }: { link: string }) {
           <LinkIcon />
           Copiar link
         </Button>
+      </li>
+      <li>
+        <div className="flex justify-center">
+          <div className="w-28">
+            <QRCode
+              id="svg"
+              size={150}
+              style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+              value={`${link}?utm_source=qrcode`}
+              viewBox={`0 0 256 256`}
+            />
+          </div>
+        </div>
       </li>
     </ul>
   );

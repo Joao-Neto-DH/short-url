@@ -180,4 +180,19 @@ export default class Services {
     });
     return result;
   }
+
+  public async totalAcessosSource(palavraChave: string) {
+    const userId = await getUsuario();
+    if (!userId) throw new Error("Usuário não logado");
+
+    const result = await prisma.utmSource.findMany({
+      where: {
+        link: {
+          palavra_chave: palavraChave,
+          usuarioId: userId,
+        },
+      },
+    });
+    return result;
+  }
 }
