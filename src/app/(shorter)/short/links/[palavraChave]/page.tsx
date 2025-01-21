@@ -55,10 +55,19 @@ async function Page({ params }: { params: Promise<{ palavraChave: string }> }) {
 
   return (
     <>
-      <div className="mb-4">
+      <div className="mb-4 space-y-2">
         <p className="text-2xl text-center">
           Analise de acessos para <span className="font-bold">{word}</span>
         </p>
+        <ul>
+          <li>Descrição: {link.descricao}</li>
+          {link.expiracao && (
+            <li>
+              Data de validade:{" "}
+              {new Date(link.expiracao).toLocaleString("pt-BR")}
+            </li>
+          )}
+        </ul>
       </div>
       <Charts dataChartArea={dataChartArea} dataChartLine={dataChartLine} />
     </>
