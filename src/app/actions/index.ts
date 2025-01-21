@@ -3,6 +3,8 @@
 import Services from "@/services";
 import { Link } from "../../../prisma/generated/client";
 import { isValidUrl } from "@/lib/utils";
+import { generate } from "random-words";
+import { getUsuario } from "@/lib/check-login";
 
 export type Result = {
   isError: boolean;
@@ -15,10 +17,15 @@ export type Result = {
 export async function gerarLink(_: Result, form: FormData) {
   const object = Object.fromEntries(form);
 
+  const palavra_chave =
+    object["palavra-chave"].toString().trim().length === 0
+      ? await getRandomWords()
+      : object["palavra-chave"].toString().trim();
+
   const data = {
     url: object.url.toString(),
     descricao: object.descricao.toString(),
-    palavra_chave: object["palavra-chave"].toString(),
+    palavra_chave,
     expiracao: object.validade?.toString(),
   };
 
@@ -82,11 +89,16 @@ export async function gerarLink(_: Result, form: FormData) {
 export async function actualizarLink(_: Result, form: FormData) {
   const object = Object.fromEntries(form);
 
+  const palavra_chave =
+    object["palavra-chave"].toString().trim().length === 0
+      ? await getRandomWords()
+      : object["palavra-chave"].toString().trim();
+
   const data = {
     id: object.id,
     url: object.url.toString(),
     descricao: object.descricao.toString(),
-    palavra_chave: object["palavra-chave"].toString(),
+    palavra_chave,
     expiracao: object.validade?.toString(),
   };
 
@@ -175,4 +187,10 @@ export async function removerLink(_: Result, form: FormData) {
     error: "Erro desconhecido",
   };
   return result;
+}
+
+async function getRandomWords() {
+  const usuario = await getUsuario();
+
+  return generate({ min: 1, max: 3, join: " " }) + usuario;
 }

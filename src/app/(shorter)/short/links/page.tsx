@@ -43,7 +43,7 @@ async function Page() {
         {results.map((link) => (
           <TableRow key={link.id}>
             <TableCell className="font-medium">
-              <p className="line-clamp-2">{link.url}</p>
+              <p className="line-clamp-2 max-w-96">{link.url}</p>
             </TableCell>
             <TableCell>
               <Link
