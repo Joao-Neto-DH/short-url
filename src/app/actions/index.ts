@@ -5,6 +5,7 @@ import { Link } from "../../../prisma/generated/client";
 import { isValidUrl } from "@/lib/utils";
 import { generate } from "random-words";
 import { getUsuario } from "@/lib/check-login";
+import { cookies } from "next/headers";
 
 export type Result = {
   isError: boolean;
@@ -187,6 +188,12 @@ export async function removerLink(_: Result, form: FormData) {
     error: "Erro desconhecido",
   };
   return result;
+}
+
+export async function logout() {
+  const cookiesStore = await cookies();
+  cookiesStore.delete("token");
+  return true;
 }
 
 async function getRandomWords() {

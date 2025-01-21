@@ -11,6 +11,7 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
+  SidebarFooter,
 } from "@/components/ui/sidebar";
 import {
   Link as LinkIcon,
@@ -23,6 +24,7 @@ import {
 import Link from "next/link";
 import React from "react";
 import FormGenerateShort from "./short/form-generate-short";
+import Logout from "./logout";
 
 // Menu items.
 const items = [
@@ -56,7 +58,7 @@ const items = [
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
-      <Sidebar>
+      <Sidebar collapsible="icon">
         <SidebarContent>
           <SidebarGroup>
             <SidebarGroupLabel>Application</SidebarGroupLabel>
@@ -76,6 +78,9 @@ function Layout({ children }: { children: React.ReactNode }) {
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
+        <SidebarFooter>
+          <Logout />
+        </SidebarFooter>
       </Sidebar>
       <div className="w-full">
         {/* header */}
