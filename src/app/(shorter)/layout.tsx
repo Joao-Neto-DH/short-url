@@ -41,7 +41,7 @@ const items = [
     icon: LucideFilePieChart,
   },
   {
-    title: "URL",
+    title: "Links",
     url: "/short/links",
     icon: LinkIcon,
   },
@@ -71,7 +71,7 @@ async function Layout({ children }: { children: React.ReactNode }) {
       <Sidebar collapsible="icon">
         <SidebarContent>
           <SidebarGroup>
-            <SidebarGroupLabel>Application</SidebarGroupLabel>
+            <SidebarGroupLabel>Short</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
                 {items.map((item) => (
