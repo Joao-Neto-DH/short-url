@@ -4,6 +4,7 @@ import LoginModal from "@/components/login-modal";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { BarChartIcon as ChartBar, Zap, Globe2, LinkIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -52,10 +53,17 @@ export default function Home() {
                 </p>
               </div>
               <div className="w-[720px] h-[150px] relative">
-                <div className="w-[720px] bg-blue-600 h-[400px] rounded-3xl relative -bottom-10 z-[1]">
-                  Foto aqui
+                <div className="w-[720px] rounded-3xl relative -bottom-10 z-[1]">
+                  <Image
+                    src={"/home.png"}
+                    className="rounded-3xl  shadow-2xl shadow-blue-600/30"
+                    alt="home"
+                    width={720}
+                    height={400}
+                    priority
+                  />
                 </div>
-                <div className="absolute -bottom-[calc(250px_+_40px)] w-[720px] rounded-b-3xl h-[100px] bg-green-600 shadow-2xl shadow-blue-600/70"></div>
+                {/* <div className="absolute -bottom-[calc(250px_+_40px)] w-[720px] rounded-b-3xl h-[100px] bg-green-600 shadow-2xl shadow-blue-600/70"></div> */}
               </div>
             </div>
           </div>
