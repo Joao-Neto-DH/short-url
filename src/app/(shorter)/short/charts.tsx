@@ -12,15 +12,17 @@ import {
   LineElement,
   Title,
   ChartData,
+  BarElement,
 } from "chart.js";
 
-import { Line, Pie } from "react-chartjs-2";
+import { Pie, Bar } from "react-chartjs-2";
 
 ChartJS.register(
   ArcElement,
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Title,
   CategoryScale,
   TooltipChart,
@@ -32,7 +34,7 @@ function Charts({
   dataChartLine,
 }: {
   dataChartArea: ChartData<"pie", number[], string>;
-  dataChartLine: ChartData<"line", number[], string>;
+  dataChartLine: ChartData<"bar", number[], string>;
 }) {
   return (
     <div className="flex flex-row gap-6 mt-4">
@@ -52,7 +54,7 @@ function Charts({
         />
       </div>
       <div className="w-full p-6 rounded-md border ">
-        <Line
+        <Bar
           data={dataChartLine}
           options={{
             plugins: {
